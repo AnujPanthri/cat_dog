@@ -9,7 +9,7 @@ import tensorflow as tf
 
 
 app=Flask(__name__)
-model = tf.keras.models.load_model('colormodel.h5') 
+model = tf.keras.models.load_model('imgmodel.h5') 
 @app.route('/')
 def home():
     return "<h2>hi dear</h2>"
