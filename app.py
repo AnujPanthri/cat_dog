@@ -55,9 +55,13 @@ def classifier():
     i=0
     for i in range(len(predictions)):
         n=predictions[i]
+        n=str(n)
+        print("value:",n)
+
         #print("see:",color_dict[n])
         result.append({'dog':n})
-    return i
+    #print(result)
+    return jsonify(result)
 
 if __name__ == '__main__':
     # Threaded option to enable multiple instances for multiple user access support
