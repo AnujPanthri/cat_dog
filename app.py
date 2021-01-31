@@ -27,7 +27,7 @@ def home():
     return "<h2>hi dear</h2>"
 
 
-@app.route('/api/',methods=['POST'])
+@app.route('/c_d/',methods=['POST'])
 def classifier():
     data=request.form.to_dict(flat=False)
     length=len(data)
