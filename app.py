@@ -30,7 +30,7 @@ color_dict={
     10 : 'White'
 }
 app=flask.Flask(__name__)
-#app.config["DEBUG"]=True
+app.config["DEBUG"]=True
 #predicting from loaded trained_model
 
 
