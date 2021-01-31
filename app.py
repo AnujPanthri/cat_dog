@@ -48,6 +48,8 @@ def classifier():
         else:
             allimg=np.concatenate((allimg,temparr))
         print("all",allimg.shape)
+    allimg = allimg.astype('float32')
+    allimg = allimg/255
     predictions=model.predict(allimg)
     result=[]
     i=0
