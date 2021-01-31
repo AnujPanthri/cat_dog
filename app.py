@@ -57,7 +57,7 @@ def classifier():
         n=predictions[i]
         #print("see:",color_dict[n])
         result.append({'dog':n})
-    return predictions
+    return (3)
 
 if __name__ == '__main__':
     # Threaded option to enable multiple instances for multiple user access support
