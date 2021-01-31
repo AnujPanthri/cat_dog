@@ -47,21 +47,12 @@ def classifier():
             allimg=temparr
         else:
             allimg=np.concatenate((allimg,temparr))
+            
+    
         #print("all",allimg.shape)
     allimg = allimg.astype('float32')
     allimg = allimg/255
-    predictions=model.predict(allimg)
-    result=[]
-    predictions=np.ndarray.flatten(predictions)
-    i=0
-    for i in range(len(predictions)):
-        n=predictions[i]
-        n=str(n)
-        #print("value:",n)
-
-        #print("see:",color_dict[n])
-        result.append({'dog':n})
-    #print(result)
+    
     return jsonify("work")
 
 if __name__ == '__main__':
