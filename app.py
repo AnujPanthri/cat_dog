@@ -52,11 +52,12 @@ def classifier():
     allimg = allimg/255
     predictions=model.predict(allimg)
     result=[]
+    predictions=np.ndarray.flatten(predictions)
     i=0
     for i in range(len(predictions)):
         n=predictions[i]
         n=str(n)
-        print("value:",n)
+        #print("value:",n)
 
         #print("see:",color_dict[n])
         result.append({'dog':n})
