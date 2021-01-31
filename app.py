@@ -31,7 +31,7 @@ def home():
 def classifier():
     data=request.form.to_dict(flat=False)
     length=len(data)
-    #print("len",length)
+    print("len",length)
     allimg=[]
     for i in range(length):
         s=str(i)
@@ -42,18 +42,29 @@ def classifier():
         img=Image.open(buf)
         temparr=array(img)
         temparr=temparr.reshape([-1,150,150,3])
-        #print("len:",temparr.shape)
+        print("len:",temparr.shape)
         if i==0:
             allimg=temparr
         else:
             allimg=np.concatenate((allimg,temparr))
-            
-    
-        #print("all",allimg.shape)
+    print("all",allimg.shape)
     allimg = allimg.astype('float32')
     allimg = allimg/255
+    predictions=np.array([[2],[3]])
+    result=[]
+    predictions=np.ndarray.flatten(predictions)
+    print(predictions.shape)
+    i=0
     
-    return jsonify("work")
+    for i in range(len(predictions)):
+        n=predictions[i]
+        n=str(n)
+        print("value:",n)
+
+        #print("see:",color_dict[n])
+        result.append({'dog':n})
+    #print(result)
+    return jsonify("result2")
 
 if __name__ == '__main__':
     # Threaded option to enable multiple instances for multiple user access support
