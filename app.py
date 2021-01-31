@@ -32,4 +32,4 @@ def classifier():
     
     return jsonify("result2")
 
-app.run()
+app.run(threaded=True, port=4000)
