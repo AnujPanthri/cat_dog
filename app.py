@@ -1,51 +1,67 @@
-from flask import Flask,jsonify,request
-from numpy import array
 import numpy as np
+import flask
+from flask import request, jsonify
+# Importing Tensorflow
 import tensorflow as tf
-from tensorflow import keras
-from tensorflow.keras import layers
+import base64
+import io
+from PIL import Image
+
+#print(tf.__version__)
+
+"""## Loading Trained Model"""
+# Recreate the exact same model, including its weights and the optimizer
+model = tf.keras.models.load_model('colormodel_trained.h5') 
+
+"""## Initializing Color Classes for Prediction"""
+
+# Mapping the Color Index with the respective 11 Classes (More Explained in RGB Color Classifier: Part 1)
+color_dict={
+    0 : 'Red',
+    1 : 'Green',
+    2 : 'Blue',
+    3 : 'Yellow',
+    4 : 'Orange',
+    5 : 'Pink',
+    6 : 'Purple',
+    7 : 'Brown',
+    8 : 'Grey',
+    9 : 'Black',
+    10 : 'White'
+}
+app=flask.Flask(__name__)
+#app.config["DEBUG"]=True
+#predicting from loaded trained_model
 
 
-app=Flask(__name__)
-model = tf.keras.models.load_model('colormodel.h5') 
 @app.route('/')
 def home():
-    return "<h2>hi dear</h2>"
+    return "<h1>working</h1>"
 
-@app.route('/c_d/',methods=['POST'])
-def classifier():
-    data=request.form.to_dict(flat=False)
-    length=len(data)
-    #print("len",length)
-    allimg=[]
-    for i in range(length):
-        s=str(i)
-        im_b64 = data[s][0] 
-        im_b64=bytes(im_b64,'ascii')
-        de=base64.b64decode(im_b64)
-        buf=io.BytesIO(de)
-        img=Image.open(buf)
-        temparr=array(img)
-        temparr=temparr.reshape([-1,150,150,3])
-        #print("len:",temparr.shape)
-        if i==0:
-            allimg=temparr
-        else:
-            allimg=np.concatenate((allimg,temparr))
-        #print("all",allimg.shape)
-    predictions=model.predict(allimg)
+
+@app.route('/api/',methods=['POST'])
+def predict_color():
+    data=request.get_json(force=True)
+    arr=[]
+    for i in range(len(data)):
+        temp=data[i]
+        arr=np.append(arr,float(temp['r']))
+        arr=np.append(arr,float(temp['g']))
+        arr=np.append(arr,float(temp['b']))
+    input_rgb=np.reshape(arr,[len(data),3]) #reshaping as per input to ANN model
+    color_class_confidence = model.predict(input_rgb) # Output of layer is in terms of Confidence of the 11 classes
+    color_index = np.argmax(color_class_confidence, axis=1) #finding the color_class index from confidence
+    #lists = color_index.tolist()
+    #json_str = json.dumps(lists)#data is in this form [1,2]
+    #color = color_dict[int(color_index)]
+    #color=np.array(color)
     result=[]
-    i=0
-    for i in range(len(predictions)):
-        n=predictions[i]
+    for i in range(len(color_index)):
+        n=color_index[i]
         #print("see:",color_dict[n])
-        result.append({'dog':n})
-    #print("all",allimg.shape)
-    # arr=array(img)
-    #print('data',img)
-    #img.show()
+        result.append({'color':color_dict[n]})
     return jsonify(result)
-    
+
 if __name__ == '__main__':
     # Threaded option to enable multiple instances for multiple user access support
     app.run(threaded=True, port=5000)
