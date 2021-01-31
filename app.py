@@ -18,7 +18,7 @@ model = tf.keras.models.load_model('imgmodel.h5')
 # Mapping the Color Index with the respective 11 Classes (More Explained in RGB Color Classifier: Part 1)
 
 app=flask.Flask(__name__)
-app.config["DEBUG"]=True
+#app.config["DEBUG"]=True
 #predicting from loaded trained_model
 
 
@@ -31,7 +31,7 @@ def home():
 def classifier():
     data=request.form.to_dict(flat=False)
     length=len(data)
-    print("len",length)
+    #print("len",length)
     allimg=[]
     for i in range(length):
         s=str(i)
@@ -42,12 +42,12 @@ def classifier():
         img=Image.open(buf)
         temparr=array(img)
         temparr=temparr.reshape([-1,150,150,3])
-        print("len:",temparr.shape)
+        #print("len:",temparr.shape)
         if i==0:
             allimg=temparr
         else:
             allimg=np.concatenate((allimg,temparr))
-        print("all",allimg.shape)
+        #print("all",allimg.shape)
     allimg = allimg.astype('float32')
     allimg = allimg/255
     predictions=model.predict(allimg)
