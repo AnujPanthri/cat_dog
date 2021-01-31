@@ -27,10 +27,10 @@ def home():
     return "<h2>hi dear</h2>"
 
 
-@app.route('/cd/',methods=['POST'])
+@app.route('/api/',methods=['POST'])
 def classifier():
-    
-    return jsonify("result2")
+    return jsonify("resultfromdog")
+
 
 if __name__ == '__main__':
     # Threaded option to enable multiple instances for multiple user access support
