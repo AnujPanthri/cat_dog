@@ -62,7 +62,7 @@ def classifier():
         #print("see:",color_dict[n])
         result.append({'dog':n})
     #print(result)
-    return jsonify(result)
+    return jsonify("work")
 
 if __name__ == '__main__':
     # Threaded option to enable multiple instances for multiple user access support
