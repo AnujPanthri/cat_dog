@@ -29,4 +29,5 @@ def predict_color():
     print("wo")
     return jsonify("re")
 
-app.run()
+if __name__ == '__main__' :
+    app.run(debug=True)
