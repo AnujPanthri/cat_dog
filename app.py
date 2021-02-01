@@ -27,10 +27,41 @@ def home():
 @app.route('/api/',methods=['POST'])
 def predict_color():
     data=request.get_json(force=True)
-    #length=len(data)
-    #print("len",length)
+    length=len(data)
+    print("len",length)
+    allimg=[]
+    for i in range(length):
+        s=str(i)
+        im_b64 = data[s][0] 
+        im_b64=bytes(im_b64,'ascii')
+        de=base64.b64decode(im_b64)
+        buf=io.BytesIO(de)
+        img=Image.open(buf)
+        temparr=array(img)
+        temparr=temparr.reshape([-1,150,150,3])
+        print("len:",temparr.shape)
+        if i==0:
+            allimg=temparr
+        else:
+            allimg=np.concatenate((allimg,temparr))
+    print("all",allimg.shape)
+    allimg = allimg.astype('float32')
+    allimg = allimg/255
+    predictions=model.predict(all)
+    result=[]
+    predictions=np.ndarray.flatten(predictions)
+    print(predictions.shape)
+    i=0
     
-    return jsonify(data)
+    for i in range(len(predictions)):
+        n=predictions[i]
+        n=str(n)
+        print("value:",n)
+
+        #print("see:",color_dict[n])
+        result.append({'dog':n})
+    print(result)
+    return jsonify(result)
 
 if __name__ == '__main__' :
     app.run(debug=True)
