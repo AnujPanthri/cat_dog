@@ -10,7 +10,7 @@ import tensorflow as tf
 
 """## Loading Trained Model"""
 # Recreate the exact same model, including its weights and the optimizer
-model = tf.keras.models.load_model('imgmodel.h5') 
+model = tf.keras.models.load_model('imgmoel.h5') 
 
 """## Initializing Color Classes for Prediction"""
 
