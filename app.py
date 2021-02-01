@@ -26,8 +26,9 @@ def home():
 
 @app.route('/api/',methods=['POST'])
 def predict_color():
+    data=request.get_json(force=True)
     print("wo")
-    return jsonify("re")
+    return jsonify(data)
 
 if __name__ == '__main__' :
     app.run(debug=True)
