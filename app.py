@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
 ## Importing Libraries
 import numpy as np
+from numpy import array
 import flask
 from flask import request, jsonify
 # Importing Tensorflow
 import tensorflow as tf
+import base64
+import io
+from PIL import Image
 
 #print(tf.__version__)
 
