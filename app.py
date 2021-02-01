@@ -29,18 +29,20 @@ def home():
 
 
 @app.route('/api/',methods=['POST'])
-def predict_color():
+def classifier():
     data=request.get_json(force=True)
     length=len(data)
     print("len",length)
     allimg=[]
     for i in range(length):
         s=str(i)
-        im_b64 = data[s][0] 
-        im_b64=bytes(im_b64,'ascii')
+        im_b64 = data[s]
+        im_b64=im_b64.encode('ascii')
         de=base64.b64decode(im_b64)
         buf=io.BytesIO(de)
         img=Image.open(buf)
+        print(img)
+        #img.show()
         temparr=array(img)
         temparr=temparr.reshape([-1,150,150,3])
         print("len:",temparr.shape)
@@ -51,7 +53,7 @@ def predict_color():
     print("all",allimg.shape)
     allimg = allimg.astype('float32')
     allimg = allimg/255
-    predictions=model.predict(all)
+    predictions=model.predict(allimg)
     result=[]
     predictions=np.ndarray.flatten(predictions)
     print(predictions.shape)
