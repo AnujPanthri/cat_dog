@@ -27,7 +27,7 @@ def home():
 @app.route('/api/',methods=['POST'])
 def classifier():
     print("hey!")
-    return jsonify("resultfromdog")
+    return jsonify("result")
 
 
 if __name__ == '__main__':
