@@ -51,8 +51,9 @@ def classifier():
         else:
             allimg=np.concatenate((allimg,temparr))
     print("all",allimg.shape)
-    allimg = allimg.astype('float32')
+    #allimg = allimg.astype('float32')
     allimg = allimg/255
+    print("all image array",allimg)
     predictions=model.predict(allimg)
     result=[]
     predictions=np.ndarray.flatten(predictions)
