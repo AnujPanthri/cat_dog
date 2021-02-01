@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+## Importing Libraries
 import numpy as np
 import flask
 from flask import request, jsonify
@@ -12,10 +14,8 @@ model = tf.keras.models.load_model('imgmodel.h5')
 
 """## Initializing Color Classes for Prediction"""
 
-# Mapping the Color Index with the respective 11 Classes (More Explained in RGB Color Classifier: Part 1)
-
 app=flask.Flask(__name__)
-app.config["DEBUG"]=True
+#app.config["DEBUG"]=True
 #predicting from loaded trained_model
 
 
@@ -25,11 +25,8 @@ def home():
 
 
 @app.route('/api/',methods=['POST'])
-def classifier():
-    print("hey!")
-    return jsonify("result")
+def predict_color():
+    print("wo")
+    return jsonify("re")
 
-
-if __name__ == '__main__':
-    # Threaded option to enable multiple instances for multiple user access support
-    app.run(threaded=True, port=5000)
+app.run()
