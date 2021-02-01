@@ -37,7 +37,7 @@ def classifier():
     for i in range(length):
         s=str(i)
         im_b64 = data[s]
-        im_b64=im_b64.encode('ascii')
+        im_b64=im_b64.encode('utf-8')
         de=base64.b64decode(im_b64)
         buf=io.BytesIO(de)
         img=Image.open(buf)
@@ -51,7 +51,7 @@ def classifier():
         else:
             allimg=np.concatenate((allimg,temparr))
     print("all",allimg.shape)
-    #allimg = allimg.astype('float32')
+    allimg = allimg.astype('float32')
     allimg = allimg/255
     print("all image array",allimg)
     predictions=model.predict(allimg)
@@ -62,6 +62,7 @@ def classifier():
     
     for i in range(len(predictions)):
         n=predictions[i]
+        n=n*100
         n=str(n)
         print("value:",n)
 
