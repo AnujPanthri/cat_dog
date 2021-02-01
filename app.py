@@ -27,8 +27,8 @@ def home():
 @app.route('/api/',methods=['POST'])
 def predict_color():
     data=request.get_json(force=True)
-    length=len(data)
-    print("len",length)
+    #length=len(data)
+    #print("len",length)
     
     return jsonify(data)
 
