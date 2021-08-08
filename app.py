@@ -22,6 +22,12 @@ app=flask.Flask(__name__)
 app.config["DEBUG"]=True
 #predicting from loaded trained_model
 
+#to resolve cors error
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+    return response
 
 @app.route('/')
 def home():
