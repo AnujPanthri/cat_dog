@@ -46,7 +46,7 @@ def classifier():
         im_b64=im_b64.encode('utf-8')
         de=base64.b64decode(im_b64)
         buf=io.BytesIO(de)
-        img=Image.open(buf)
+        img=Image.open(buf).convert("RGB")
         print(img)
         #img.show()
         temparr=array(img)
